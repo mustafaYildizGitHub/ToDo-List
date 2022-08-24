@@ -9,10 +9,15 @@ import UIKit
 
 class ViewController: UITableViewController {
     
-    let array = ["a","b","c"]
+    let defaults = UserDefaults.standard
+    var array = ["a","b","c"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let arrayUpdated = defaults.array(forKey: "ToDoListArray") as? [String] {
+            array = arrayUpdated
+        }
         
     }
 
@@ -37,5 +42,39 @@ class ViewController: UITableViewController {
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            array.remove(at: indexPath.row)
+            self.defaults.set(self.array, forKey: "ToDoListArray")
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.reloadData()
+            
+        }
+    }
+
+//MARK: - Add new items
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        var textField = UITextField()
+        let alert = UIAlertController(title: "Add new item", message: "", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Add item", style: .default) { (action) in
+            self.array.append(textField.text ?? "New item")
+            self.defaults.set(self.array, forKey: "ToDoListArray")
+            self.tableView.reloadData()
+        }
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Create new item"
+            textField = alertTextField
+        }
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    
 }
 

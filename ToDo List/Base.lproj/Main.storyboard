@@ -30,11 +30,18 @@
                             <outlet property="delegate" destination="iSY-Bb-w1s" id="jtR-xz-zLy"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="TO-DO LIST" id="lPQ-ns-nx5"/>
+                    <navigationItem key="navigationItem" title="TO-DO LIST" id="lPQ-ns-nx5">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="yGy-EK-GP3">
+                            <color key="tintColor" systemColor="systemYellowColor"/>
+                            <connections>
+                                <action selector="addButtonPressed:" destination="iSY-Bb-w1s" id="BYC-t3-4Ky"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zXL-MO-Jw4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1216" y="-25"/>
+            <point key="canvasLocation" x="1070" y="-25"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="sW0-Ne-ysK">
